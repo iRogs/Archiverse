@@ -29,10 +29,7 @@ public class Mundo {
 
     @OneToMany(mappedBy = "mundo", cascade = CascadeType.ALL)
     private List<Local> locais;
+    
     private LocalDateTime dataCriacao;
-
-    public Mundo(String nome){
-        this.nome=nome;
-    }
     
 }
