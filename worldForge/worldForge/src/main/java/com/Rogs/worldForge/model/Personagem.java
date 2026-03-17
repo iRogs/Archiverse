@@ -1,7 +1,10 @@
 package com.Rogs.worldForge.model;
 
 
+import java.time.LocalDateTime;
 import java.util.*;
+
+import com.Rogs.worldForge.DTO.PersonagemDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,11 +29,23 @@ public class Personagem {
 
     @ManyToOne
     @JoinColumn(name = "local_origem_id")
-    private Local localOrigem; // Nome claro ajuda na manutenção
+    private Local localOrigem;  //pode ou não existir um local de origem para o personagem (nullable = true)
 
     @ManyToMany
-    private List<Local> locaisVisitados; // Aqui ele pode interagir com vários!
+    private List<Local> locaisVisitados; //nullable = true
+
+    @ManyToOne
+    @JoinColumn(name = "dono_id")
+    private User dono;
 
     private String nome;
     private String descricao;
-}
+    private LocalDateTime dataCriacao;
+
+
+    public Personagem(PersonagemDTO personagemDTO) {
+        this.nome = personagemDTO.nome();
+        this.descricao = personagemDTO.descricao();
+        this.dataCriacao = LocalDateTime.now();
+    }
+}   
