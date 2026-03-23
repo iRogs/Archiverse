@@ -34,9 +34,8 @@ public class MundoController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Mundo> obterMundo(@PathVariable Long id) {
-        return mundoService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Mundo mundo = mundoService.buscarPorId(id);
+        return ResponseEntity.ok(mundo);
     }
 
 }

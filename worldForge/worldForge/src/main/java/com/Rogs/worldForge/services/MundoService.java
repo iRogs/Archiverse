@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.Rogs.worldForge.repositories.MundoRepository;
 import com.Rogs.worldForge.repositories.UserRepository;
 import com.Rogs.worldForge.DTO.MundoDTO;
+import com.Rogs.worldForge.infra.exceptions.ResourceNotFoundException;
 import com.Rogs.worldForge.model.Mundo;
 import com.Rogs.worldForge.model.User;
 
@@ -21,7 +22,7 @@ public class MundoService {
     public Mundo salvar(MundoDTO mundoDTO, Long usuarioId) {
 
         User dono = userRepository.findById(usuarioId)
-            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
         Mundo mundo = new Mundo(mundoDTO);
 
         mundo.setCriador(dono);
@@ -29,7 +30,8 @@ public class MundoService {
         return mundoRepository.save(mundo);
     }
 
-    public Optional<Mundo> buscarPorId(Long id) {
-        return mundoRepository.findById(id);
+    public Mundo buscarPorId(Long id) {
+        return mundoRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Mundo não encontrado"));
     }
 }

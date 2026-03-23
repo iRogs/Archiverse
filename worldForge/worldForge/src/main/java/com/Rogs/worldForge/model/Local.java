@@ -23,8 +23,8 @@ public class Local {
 
     @ManyToOne
     @JoinColumn(name = "mundo_id")
-    private Mundo mundo; // O local precisa saber a qual mundo pertence
+    private Mundo mundo; 
 
-    @OneToMany(mappedBy = "localOrigem") // Nome corrigido para bater com Personagem
+    @OneToMany(mappedBy = "localOrigem")
     private List<Personagem> personagensNativos;
 }

@@ -46,7 +46,8 @@ public class PersonagemService {
 
     }
 
-    public Optional<Personagem> buscarPorId(Long id) {
-        return personagemRepository.findById(id);
+    public Personagem buscarPorId(Long id) {
+        return personagemRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
     }
 }
